@@ -1,0 +1,119 @@
+spring:
+  application:
+    name: # 自己的名字
+  # 默认 dev 环境
+  profiles:
+    active: dev
+  # 支持 swagger3
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  # session 配置
+  session:
+    # todo 取消注释开启分布式 session（须先配置 Redis）
+    # store-type: redis
+    # 30 天过期
+    timeout: 2592000
+  # 数据库配置
+  # todo 需替换配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/todo
+    username: todo
+    password: todo
+  # Redis 配置
+  # todo 需替换配置，然后取消注释
+  redis:
+    database: 1
+    host: todo
+    port: 6379
+    timeout: 60000000
+#    lettuce:
+#      pool:
+#        max-active: 8 # 连接池最大连接数（使用负值表示没有限制） 默认 8
+#        max-wait: -1 # 连接池最大阻塞等待时间（使用负值表示没有限制） 默认 -1
+#        max-idle: 8 # 连接池中的最大空闲连接 默认 8
+#        min-idle: 0 # 连接池中的最小空闲连接 默认 0
+##    password: 123456
+  # Elasticsearch 配置
+  # todo 需替换配置，然后取消注释
+#  elasticsearch:
+#    uris: http://localhost:9200
+#    username: root
+#    password: 123456
+  # 文件上传
+  servlet:
+    multipart:
+      # 大小限制
+      max-file-size: 10MB
+  rabbitmq:
+    host: 192.168.226.130
+    username: admin
+    password: 123456
+    port: 5672
+  cache:
+    type: redis
+    redis:
+      use-key-prefix: false
+      key-prefix:
+      cache-null-values: true
+      time-to-live: 300s
+server:
+  address: 0.0.0.0
+  port: 8101
+  servlet:
+    context-path: /api
+    # cookie 30 天过期
+    session:
+      cookie:
+        max-age: 2592000
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    cache-enabled: true
+#    cache-names: users
+  #      cache:
+#       enabled: true # 开启Redis缓存
+#       type: redis # Redis缓存类型
+#       ttl: 60000 # Redis缓存过期时间，单位为毫秒，默认值为-1，即永不过期
+#       flush-interval: 60000 # Redis缓存刷新时间，单位为毫秒，默认值为-1，即永不刷新
+#       size: 1000 # Redis缓存大小，默认值为0，即不限制缓存大小
+  global-config:
+    db-config:
+      logic-delete-field: isDelete # 全局逻辑删除的实体字段名
+      logic-delete-value: 1 # 逻辑已删除值（默认为 1）
+      logic-not-delete-value: 0 # 逻辑未删除值（默认为 0）
+# 微信相关
+wx:
+  # 微信公众平台
+  # todo 需替换配置
+  mp:
+    token: xxx
+    aesKey: xxx
+    appId: xxx
+    secret: xxx
+    config-storage:
+      http-client-type: HttpClient
+      key-prefix: wx
+      redis:
+        host: 127.0.0.1
+        port: 6379
+      type: Memory
+  # 微信开放平台
+  # todo 需替换配置
+  open:
+    appId: xxx
+    appSecret: xxx
+# 对象存储
+# todo 需替换配置
+cos:
+  client:
+    accessKey: xxx
+    secretKey: xxx
+    region: xxx
+    bucket: xxx
+yuapi:
+  client:
+    secret-key: todo
+    access-key: todo
